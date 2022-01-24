@@ -34,7 +34,7 @@ public class Term {
    public boolean isSatisfied(Scan s) {
       Constant lhsval = lhs.evaluate(s);
       Constant rhsval = rhs.evaluate(s);
-      return operator.operate(lhsval, rhsval);
+      return operator.operate(lhsval, rhsval); 
    }
    
    /**

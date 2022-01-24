@@ -28,6 +28,9 @@ public class Lexer {
       tok = new StreamTokenizer(new StringReader(s));
       tok.ordinaryChar('.');   //disallow "." in identifiers
       tok.wordChars('_', '_'); //allow "_" in identifiers
+      tok.wordChars('<', '<'); //allow "_" in identifiers
+      tok.wordChars('=', '='); //allow "_" in identifiers
+      tok.wordChars('>', '>'); //allow "_" in identifiers
       tok.lowerCaseMode(true); //ids and keywords are converted
       nextToken();
    }
