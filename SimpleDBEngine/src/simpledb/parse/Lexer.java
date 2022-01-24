@@ -1,14 +1,20 @@
 package simpledb.parse;
 
+import static simpledb.query.Operator.operators;
+
 import java.util.*;
 import java.io.*;
+
+import simpledb.query.Operator;
+
+
 
 /**
  * The lexical analyzer.
  * @author Edward Sciore
  */
 public class Lexer {
-   private Collection<String> keywords;
+   private Collection<String> keywords;   
    private StreamTokenizer tok;
    
    /**
@@ -16,7 +22,7 @@ public class Lexer {
     * @param s the SQL statement
     */
    public Lexer(String s) {
-      initKeywords();
+      initKeywords();      
       tok = new StreamTokenizer(new StringReader(s));
       tok.ordinaryChar('.');   //disallow "." in identifiers
       tok.wordChars('_', '_'); //allow "_" in identifiers
@@ -24,6 +30,8 @@ public class Lexer {
       nextToken();
    }
    
+
+
 //Methods to check the status of the current token
    
    /**
@@ -69,6 +77,14 @@ public class Lexer {
       return  tok.ttype==StreamTokenizer.TT_WORD && !keywords.contains(tok.sval);
    }
    
+   /**
+    * Returns true if the current token is a legal operator.
+    * @return true if the current token is an operator
+    */
+   public boolean matchOperator() {
+      return  tok.ttype==StreamTokenizer.TT_WORD && operators.contains(tok.sval);
+   }
+   
 //Methods to "eat" the current token
    
    /**
@@ -81,6 +97,14 @@ public class Lexer {
       if (!matchDelim(d))
          throw new BadSyntaxException();
       nextToken();
+   }
+    
+   public Operator eatOperator() {
+	      if (!matchOperator())
+	         throw new BadSyntaxException();
+	      String s = tok.sval;
+	      nextToken();
+	      return new Operator(s);
    }
    
    /**
@@ -152,4 +176,5 @@ public class Lexer {
                                "insert", "into", "values", "delete", "update", "set", 
                                "create", "table", "int", "varchar", "view", "as", "index", "on");
    }
+      
 }

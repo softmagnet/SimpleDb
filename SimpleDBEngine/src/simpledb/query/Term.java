@@ -32,7 +32,8 @@ public class Term {
    public boolean isSatisfied(Scan s) {
       Constant lhsval = lhs.evaluate(s);
       Constant rhsval = rhs.evaluate(s);
-      return rhsval.equals(lhsval);
+      return !rhsval.equals(lhsval);
+      //TODO
    }
    
    /**
