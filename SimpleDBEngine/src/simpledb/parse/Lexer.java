@@ -2,6 +2,8 @@ package simpledb.parse;
 
 import static simpledb.query.Operator.operators;
 
+import simpledb.query.Operator;
+
 import java.util.*;
 import java.io.*;
 
@@ -82,6 +84,8 @@ public class Lexer {
     * @return true if the current token is an operator
     */
    public boolean matchOperator() {
+	   boolean a = tok.ttype==StreamTokenizer.TT_WORD;
+	   boolean b = operators.contains(tok.sval);
       return  tok.ttype==StreamTokenizer.TT_WORD && operators.contains(tok.sval);
    }
    

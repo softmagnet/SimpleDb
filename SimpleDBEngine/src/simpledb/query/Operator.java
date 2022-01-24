@@ -44,4 +44,8 @@ public class Operator {
 		}
 		 
 	}
+	
+	public boolean operate(Constant lhsval, Constant rhsVal) {
+		return lhsval.equals(rhsVal);
+	}
 }	
