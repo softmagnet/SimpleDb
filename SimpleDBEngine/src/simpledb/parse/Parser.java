@@ -36,18 +36,18 @@ public class Parser {
          return new Expression(constant());
    }
    
-   public Term term() {
+   public Term term() { //TODO
       Expression lhs = expression();
-      lex.eatDelim('=');
+      Operator operator = lex.eatOperator(); //eatOpr, should return a string of the operator
       Expression rhs = expression();
-      return new Term(lhs, rhs);
+      return new Term(lhs, rhs, operator); //accept an operator object
    }
    
    public Predicate predicate() {
       Predicate pred = new Predicate(term());
       if (lex.matchKeyword("and")) {
          lex.eatKeyword("and");
-         pred.conjoinWith(predicate());
+         pred.conjoinWith(predicate()); //note the recursive call
       }
       return pred;
    }
