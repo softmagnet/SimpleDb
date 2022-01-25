@@ -46,6 +46,21 @@ public class Operator {
 	}
 	
 	public boolean operate(Constant lhsval, Constant rhsVal) {
-		return lhsval.equals(rhsVal);
+		switch (ownType) {
+		case EQUAL:
+			return lhsval.equals(rhsVal);
+		case NOT_EQUAL:
+			return !lhsval.equals(rhsVal);
+		case GREATER_THAN:
+			return lhsval.compareTo(rhsVal) > 0;
+		case LESS_THAN:
+			return lhsval.compareTo(rhsVal) < 0;
+		case LESS_OR_EQUAL:
+			return lhsval.compareTo(rhsVal) < 0 || lhsval.equals(rhsVal);
+		case GREATER_OR_EQUAL:
+			return lhsval.compareTo(rhsVal) > 0 || lhsval.equals(rhsVal);
+		default:
+			throw new BadSyntaxException();					
+		}	
 	}
 }	
