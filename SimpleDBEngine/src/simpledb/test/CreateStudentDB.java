@@ -14,7 +14,7 @@ public class CreateStudentDB {
       
 
       try {
-    	  SimpleDB db = new SimpleDB("plannertest1");
+    	  SimpleDB db = new SimpleDB("studentdb");
           Transaction tx = db.newTx();
           Planner planner = db.planner();
     	  

@@ -1,7 +1,5 @@
 package simpledb.test;
 
-import java.sql.*;
-import simpledb.jdbc.embedded.EmbeddedDriver;
 import simpledb.plan.Planner;
 import simpledb.server.SimpleDB;
 import simpledb.tx.Transaction;
@@ -10,7 +8,7 @@ public class ChangeMajor {
    public static void main(String[] args) {
 
       try {
-		  SimpleDB db = new SimpleDB("plannertest1");
+		  SimpleDB db = new SimpleDB("studentdb");
 	      Transaction tx = db.newTx();
 	      Planner planner = db.planner();
          String cmd = "update STUDENT "
