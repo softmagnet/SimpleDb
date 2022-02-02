@@ -1,1 +1,6 @@
 *.class
+*.tbl
+*.log
+
+SimpleDBClients/studentdb
+SimpleDBEngine/studentdb
