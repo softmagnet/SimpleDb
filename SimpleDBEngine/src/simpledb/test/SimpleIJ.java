@@ -5,9 +5,10 @@ import simpledb.plan.Planner;
 import simpledb.query.Scan;
 import simpledb.server.SimpleDB;
 import simpledb.tx.Transaction;
+
+import java.sql.Types;
 import java.util.Scanner;
-import simpledb.jdbc.embedded.EmbeddedDriver;
-import simpledb.jdbc.network.NetworkDriver;
+import simpledb.jdbc.embedded.EmbeddedMetaData;
 
 public class SimpleIJ {
    public static void main(String[] args) {
@@ -41,10 +42,12 @@ public class SimpleIJ {
     	  Plan p = planner.createQueryPlan(cmd, tx);          
           // analogous to the result set
           Scan s = p.open();
+          
+          EmbeddedMetaData md = new EmbeddedMetaData(p.schema());
     	  
          
-         int numcols = s.f
-         int totalwidth = 0;
+          int numcols = md.getColumnCount();
+          int totalwidth = 0;
 
          // print header
          for(int i=1; i<=numcols; i++) {
@@ -60,17 +63,17 @@ public class SimpleIJ {
          System.out.println();
 
          // print records
-         while(rs.next()) {
+         while(s.next()) {
             for (int i=1; i<=numcols; i++) {
                String fldname = md.getColumnName(i);
                int fldtype = md.getColumnType(i);
                String fmt = "%" + md.getColumnDisplaySize(i);
                if (fldtype == Types.INTEGER) {
-                  int ival = rs.getInt(fldname);
+                  int ival = s.getInt(fldname);
                   System.out.format(fmt + "d", ival);
                }
                else {
-                  String sval = rs.getString(fldname);
+                  String sval = s.getString(fldname);
                   System.out.format(fmt + "s", sval);
                }
             }
